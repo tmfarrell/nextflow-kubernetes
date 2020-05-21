@@ -16,9 +16,10 @@ process download_fastqgz {
 
     """
     gsutil cp $fastqgz .
-    echo $PWD
-    ls -la $PWD/*
-    ls -la /data/work/*
+    echo $PWD > download_fastqgz.log
+    ls -la $PWD/* >> download_fastqgz.log
+    ls -la /data/work/* >> download_fastqgz.log
+    gsutil cp download_fastqgz.log gs://users-dev-dzd/tim/
     """
 }
 
