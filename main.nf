@@ -16,17 +16,13 @@ process download_fastqgz {
 
     """
     gsutil cp $fastqgz .
-    echo $PWD > download_fastqgz.log
-    ls -la $PWD/* >> download_fastqgz.log
-    ls -la /data/work/* >> download_fastqgz.log
-    gsutil cp download_fastqgz.log gs://users-dev-dzd/tim/
     """
 }
 
 process fastqc {
     publishDir "$baseDir", mode: 'copy'
 
-    container "biocontainers/fastqc:v0.11.8dfsg-2-deb_cv1"
+    container "ummidock/fastqc:0.11.7-1"
 
     input:
     path fastqgz from local_fastqgzs
@@ -36,8 +32,7 @@ process fastqc {
     file "*_fastqc.zip" into fastqc_zips
 
     """
-    ls -la /data/work/
-    /usr/bin/fastqc $fastqgz
+    fastqc $fastqgz
     """
 }
 
