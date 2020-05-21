@@ -16,6 +16,9 @@ process download_fastqgz {
 
     """
     gsutil cp $fastqgz .
+    echo $PWD
+    ls -la $PWD/*
+    ls -la /data/work/*
     """
 }
 
@@ -32,6 +35,7 @@ process fastqc {
     file "*_fastqc.zip" into fastqc_zips
 
     """
+    ls -la /data/work/
     /usr/bin/fastqc $fastqgz
     """
 }
